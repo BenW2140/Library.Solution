@@ -28,5 +28,13 @@ namespace Library.Controller
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+    public ActionResult Details(int id)
+    {
+      var thisAuthor = _db.Authors
+        .Include(author => author.Books)
+        .ThenInclude(join => join.Book)
+        .FirstOrDefault(author => author.AuthorId == id);
+      return View(thisAuthor);
+    }
   }
 }
