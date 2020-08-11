@@ -39,6 +39,22 @@ namespace Library.Controllers
         return View();
       }
     }
-    
+    public ActionResult Login()
+    {
+      return View();
+    }
+    [HttpPost]
+    public async Task<ActionResult> Login(LoginViewModel model)
+    {
+      SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
+      if (result.Succeeded)
+      {
+        return RedirectToAction("Index");
+      }
+      else
+      {
+        return View();
+      }
+    }
   }
 }
