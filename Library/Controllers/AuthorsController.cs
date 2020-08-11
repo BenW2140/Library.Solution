@@ -42,9 +42,9 @@ namespace Library.Controllers
       return View(thisAuthor);
     }
     [HttpPost]
-    public ActionResult Edit(Book book)
+    public ActionResult Edit(Author author)
     {
-      _db.Entry(book).State = EntityState.Modified;
+      _db.Entry(author).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
