@@ -28,5 +28,10 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+    public ActionResult Details(int id)
+    {
+      var thisCatalog = _db.Catalogs.FirstOrDefault(catalog => catalog.CatalogId == id);
+      return View(thisCatalog);
+    }
   }
 }
