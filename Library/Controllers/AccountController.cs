@@ -9,11 +9,11 @@ namespace Library.Controllers
   public class AccountController : Controller
   {
     private readonly LibraryContext _db;
-    private readonly UserManager<ApplicationUser> _userMangager;
+    private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, LibraryContext db)
     {
-      _userMangager = userManager;
+      _userManager = userManager;
       _signInManager = signInManager;
       _db = db;
     }
@@ -46,7 +46,7 @@ namespace Library.Controllers
     [HttpPost]
     public async Task<ActionResult> Login(LoginViewModel model)
     {
-      SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
+      Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
       if (result.Succeeded)
       {
         return RedirectToAction("Index");

@@ -1,15 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
-using ToDoList.Models;
+using Library.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library.Controller
+namespace Library.Controllers
 {
   public class AuthorsController : Controller
   {
     private readonly LibraryContext _db;
-    public AuthorsController(LibraryContext _db)
+    public AuthorsController(LibraryContext db)
     {
       _db = db;
     }
@@ -48,9 +48,9 @@ namespace Library.Controller
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-    public AtionResult Delete(int id)
+    public ActionResult Delete(int id)
     {
-      var thisAuthor = _db.Authors.FirstOrDefault(author => author.Author.id == id);
+      var thisAuthor = _db.Authors.FirstOrDefault(author => author.AuthorId == id);
       return View(thisAuthor);
     }
     [HttpPost, ActionName("Delete")]

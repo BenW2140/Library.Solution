@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using HairSalon.Models;
+using Library.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Library.Controllers
     }
     public async Task<ActionResult> Index()
     {
-      var userId = this._userManager.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
       var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id);
       return View(userBooks);
@@ -33,9 +34,9 @@ namespace Library.Controllers
       return View();
     }
     [HttpPost]
-    public ActionResult Create(Book book, int authorId)
+    public async Task<ActionResult> Create(Book book, int authorId)
     {
-      var userId = this._userManager.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
       book.User = currentUser;
       _db.Books.Add(book);
@@ -57,7 +58,7 @@ namespace Library.Controllers
     }
     public ActionResult Edit(int id)
     {
-      var thisBook = FirstOrDefault(book => book.BookId == id);
+      var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
       ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
       return View(thisBook);
     }
@@ -68,7 +69,7 @@ namespace Library.Controllers
       {
         _db.AuthorBook.Add(new AuthorBook() { AuthorId = authorId, BookId = book.BookId });
       }
-      _db.Entry(book).state = EntityState.Modified;
+      _db.Entry(book).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
