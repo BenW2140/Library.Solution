@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Library.ViewModels
+@model LoginViewModel
+
+<h3>Account Sign In</h3>
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+  @Html.LabelFor(m => m.Email)
+  @Html.TextBoxFor(m => m.Email)
+
+  @Html.LabelFor(m => m.Password)
+  @Html.TextBoxFor(m => m.Password)
+
+  <input type="submit" value="log in" class="btn btn-default">
+}
