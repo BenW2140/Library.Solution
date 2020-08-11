@@ -62,13 +62,29 @@ namespace Library.Controllers
       return View(thisBook);
     }
     [HttpPost]
-    public async Task<ActionResult> Edit(Book book, int authorId)
+    public ActionResult Edit(Book book, int authorId)
     {
       if (authorId != 0)
       {
         _db.AuthorBook.Add(new AuthorBook() { AuthorId = authorId, BookId = book.BookId });
       }
       _db.Entry(book).state = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+    public ActionResult AddAuthor(int id)
+    {
+      var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
+      ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
+      return View(thisBook);
+    }
+    [HttpPost]
+    public ActionResult AddAuthor(Book book, int authorId)
+    {
+      if (authorId != 0)
+      {
+        _db.AuthorBook.Add(new AuthorBook() { AuthorId = authorId, BookId = book.BookId });
+      }
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
