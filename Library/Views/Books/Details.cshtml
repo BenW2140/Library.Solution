@@ -19,7 +19,7 @@ else
   <ul>
     @foreach (var join in Model.Authors)
     {
-      <li>join.Author.Name</li>
+      <li>@join.Author.Name</li>
       @using (Html.BeginForm("DeleteAuthor", "Books"))
       {
         @Html.Hidden("joinId", @join.AuthorBookId)
