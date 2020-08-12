@@ -18,5 +18,7 @@
   @Html.LabelFor(user => user.ConfirmPassword)
   @Html.TextBoxFor(user => user.ConfirmPassword)
 
-  <input type="submit" value="sign up" class="btn btn-default">
+  <input type="submit" value="Sign up" class="btn btn-default">
 }
+<p>@Html.ActionLink("Log In", "Login")</p>
+<p>@Html.ActionLink("Accounts", "Index")</p>

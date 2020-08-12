@@ -33,5 +33,30 @@ namespace Library.Controllers
       var thisCatalog = _db.Catalogs.FirstOrDefault(catalog => catalog.CatalogId == id);
       return View(thisCatalog);
     }
+    public ActionResult Edit(int id)
+    {
+      var thisCatalog = _db.Catalogs.FirstOrDefault(catalog => catalog.CatalogId == id);
+      return View(thisCatalog);
+    }
+    [HttpPost]
+    public ActionResult Edit(Catalog catalog)
+    {
+      _db.Entry(catalog).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+    public ActionResult Delete(int id)
+    {
+      var thisCatalog = _db.Catalogs.FirstOrDefault(catalog => catalog.CatalogId == id);
+      return View(thisCatalog);
+    }
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      var thisCatalog = _db.Catalogs.FirstOrDefault(catalog => catalog.CatalogId == id);
+      _db.Catalogs.Remove(thisCatalog);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }

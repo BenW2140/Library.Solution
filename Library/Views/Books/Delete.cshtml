@@ -1,0 +1,15 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Book
+
+<h3>Remove this book?</h3>
+
+<h4>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)</h4>
+
+@using (Html.BeginForm())
+{
+  <input type="submit" value="Remove" class="btn btn-default">
+}
+<p>@Html.ActionLink("Display books", "Index")</p>

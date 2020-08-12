@@ -1,0 +1,43 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Library.Models
+@model Library.Models.Book
+
+<h3>About model.Title</h3>
+
+<h4>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)</h4>
+
+@if (@Model.Authors.Count == 0)
+{
+  <p>@Model.Title has no authors</p>
+}
+else
+{
+  <h4>@Html.DisplayNameFor(model => model.Authors): </h4>
+  <ul>
+    @foreach (var join in Model.Authors)
+    {
+      <li>join.Author.Name</li>
+      @using (Html.BeginForm("DeleteAuthor", "Books"))
+      {
+        @Html.Hidden("joinId", @join.AuthorBookId)
+        <input type="submit" value="Remove Author" class="btn btn-default">
+      }
+    }
+  </ul>
+}
+@if (@Model.Catalog == null)
+{
+  <p>@Model.Title doesn't belong to a catalog</p>
+}
+else
+{
+  <h4>@Html.DisplayNameFor(model => model.Catalog): @Html.DisplayFor(model => model.Catalog)</h4>
+}
+
+<p>@Html.ActionLink("Display books", "Index")</p>
+<p>@Html.ActionLink("Edit book", "Edit", new { id = Model.BookId })</p>
+<p>@Html.ActionLink("Add an author", "AddAuthor", new { id = Model.BookId })</p>
+<p>@Html.ActionLink("Delete book", "Delete", new { id = Model.BookId })</p>
