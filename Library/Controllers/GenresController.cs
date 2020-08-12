@@ -6,55 +6,55 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers
 {
-  public class CatalogsController : Controller
+  public class GenresController : Controller
   {
     private readonly LibraryContext _db;
-    public CatalogsController(LibraryContext db)
+    public GenresController(LibraryContext db)
     {
       _db = db;
     }
     public ActionResult Index()
     {
-      return View(_db.Catalogs.ToList());
+      return View(_db.Genres.ToList());
     }
     public ActionResult Create()
     {
       return View();
     }
     [HttpPost]
-    public ActionResult Create(Catalog catalog)
+    public ActionResult Create(Genre Genre)
     {
-      _db.Catalogs.Add(catalog);
+      _db.Genres.Add(Genre);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
     public ActionResult Details(int id)
     {
-      var thisCatalog = _db.Catalogs.FirstOrDefault(catalog => catalog.CatalogId == id);
-      return View(thisCatalog);
+      var thisGenre = _db.Genres.FirstOrDefault(Genre => Genre.GenreId == id);
+      return View(thisGenre);
     }
     public ActionResult Edit(int id)
     {
-      var thisCatalog = _db.Catalogs.FirstOrDefault(catalog => catalog.CatalogId == id);
-      return View(thisCatalog);
+      var thisGenre = _db.Genres.FirstOrDefault(Genre => Genre.GenreId == id);
+      return View(thisGenre);
     }
     [HttpPost]
-    public ActionResult Edit(Catalog catalog)
+    public ActionResult Edit(Genre Genre)
     {
-      _db.Entry(catalog).State = EntityState.Modified;
+      _db.Entry(Genre).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
     public ActionResult Delete(int id)
     {
-      var thisCatalog = _db.Catalogs.FirstOrDefault(catalog => catalog.CatalogId == id);
-      return View(thisCatalog);
+      var thisGenre = _db.Genres.FirstOrDefault(Genre => Genre.GenreId == id);
+      return View(thisGenre);
     }
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      var thisCatalog = _db.Catalogs.FirstOrDefault(catalog => catalog.CatalogId == id);
-      _db.Catalogs.Remove(thisCatalog);
+      var thisGenre = _db.Genres.FirstOrDefault(Genre => Genre.GenreId == id);
+      _db.Genres.Remove(thisGenre);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }

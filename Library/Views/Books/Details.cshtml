@@ -28,13 +28,13 @@ else
     }
   </ul>
 }
-@if (@Model.Catalog == null)
+@if (@Model.Genre == null)
 {
-  <p>@Model.Title doesn't belong to a catalog</p>
+  <p>@Model.Title doesn't belong to a genre</p>
 }
 else
 {
-  <h4>@Html.DisplayNameFor(model => model.Catalog): @Html.DisplayFor(model => model.Catalog)</h4>
+  <h4>@Html.DisplayNameFor(model => model.Genre): @Html.DisplayFor(model => model.Genre)</h4>
 }
 
 <p>@Html.ActionLink("Display books", "Index")</p>

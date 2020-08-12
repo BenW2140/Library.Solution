@@ -25,13 +25,13 @@ namespace Library.Controllers
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
-      var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).Include(Books => Books.Catalog);
+      var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).Include(Books => Books.Genre);
       return View(userBooks);
     }
     public ActionResult Create()
     {
       ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
-      ViewBag.CatalogId = new SelectList(_db.Catalogs, "CatalogId", "Name");
+      ViewBag.GenreId = new SelectList(_db.Genres, "GenreId", "Name");
       return View();
     }
     [HttpPost]
@@ -61,7 +61,7 @@ namespace Library.Controllers
     {
       var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
       ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
-      ViewBag.CatalogId = new SelectList(_db.Catalogs, "CatalogId", "Name");
+      ViewBag.GenreId = new SelectList(_db.Genres, "GenreId", "Name");
 
       return View(thisBook);
     }
