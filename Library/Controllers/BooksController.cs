@@ -105,5 +105,11 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+    [HttpPost]
+    public ActionResult Search(string entry)
+    {
+      var searchResults = _db.Books.Where(book => book.Title.Contains(entry));
+      return View(searchResults);
+    }
   }
 }

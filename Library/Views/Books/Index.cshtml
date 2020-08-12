@@ -8,6 +8,14 @@
 
 <h2>List of Books</h2>
 
+@using (Html.BeginForm())
+{
+  @Html.Label("Search by title")
+  @Html.TextBox("Search")
+
+  <input type="submit" value="Search" class="btn btn-default">
+}
+
 @if (Model.Any())
 {
   <ul>
