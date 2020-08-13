@@ -62,7 +62,6 @@ namespace Library.Controllers
       var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
       ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
       ViewBag.GenreId = new SelectList(_db.Genres, "GenreId", "Name");
-
       return View(thisBook);
     }
     [HttpPost]
@@ -106,10 +105,16 @@ namespace Library.Controllers
       return RedirectToAction("Index");
     }
     [HttpPost]
+    public ActionResult DeleteAuthor(int joinId)
+    {
+      var joinEntry = _db.AuthorBook.FirstOrDefault(entry => entry.AuthorBookId == joinId);
+      _db.AuthorBook.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
     public ActionResult Search(string entry)
     {
-      var searchResults = _db.Books.Where(book => book.Title.Contains(entry));
-      return View(searchResults);
+      return View(_db.Books.Where(book => book.Title.StartsWith(entry)).ToList());
     }
   }
 }

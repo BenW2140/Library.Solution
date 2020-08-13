@@ -8,10 +8,10 @@
 
 <h2>List of Books</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Search", "Books", FormMethod.Get))
 {
   @Html.Label("Search by title")
-  @Html.TextBox("Search")
+  @Html.TextBox("entry")
 
   <input type="submit" value="Search" class="btn btn-default">
 }
